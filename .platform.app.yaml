@@ -24,7 +24,7 @@ hooks:
     else
       echo "Daalder requires authorization in order to be installed. Please add the COMPOSER_AUTH environment variable with your credentials, either by using the Web Console or by running the folllwing command:"
       echo
-      echo "platform variable:create -l project --name=COMPOSER_AUTH --value='{"http-basic": {"pionect.repo.packagist.com": {"username": "token", "password": "YOUR_TOKEN"}}}' --json=true --sensitive=true --prefix=env: --visible-build=true --visible-runtime=false -p YOUR_PLATFORM_PROJECT_ID
+      echo 'platform variable:create -l project --name=COMPOSER_AUTH --value=\'{"http-basic": {"pionect.repo.packagist.com": {"username": "token", "password": "YOUR_TOKEN"}}}\' --json=true --sensitive=true --prefix=env: --visible-build=true --visible-runtime=false -p YOUR_PLATFORM_PROJECT_ID'
     fi
   deploy: |
     set -e
