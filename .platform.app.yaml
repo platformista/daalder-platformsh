@@ -22,13 +22,13 @@ hooks:
       composer install
       touch app.built
     else
-      echo "Daalder requires authorization in order to be installed. Please add the COMPOSER_AUTH environment variable with your credentials, either by using the Web Console or by running the folllwing command:"
+      echo "Packagist authentication is required in order to fetch the daalder package. Please add the COMPOSER_AUTH environment variable with your credentials, either by using the Web Console or by running the folllwing command:"
       echo
       echo 'platform variable:create -l project --name=COMPOSER_AUTH --value=\'{"http-basic": {"pionect.repo.packagist.com": {"username": "token", "password": "YOUR_TOKEN"}}}\' --json=true --sensitive=true --prefix=env: --visible-build=true --visible-runtime=false -p YOUR_PLATFORM_PROJECT_ID'
     fi
   deploy: |
     set -e
-    if ! [ -f "app.built" ]; then
+    if [ -f "app.built" ] && ! [ -f "storage/auth-clients.txt" ]; then
       php artisan package:discover
       php artisan migrate:fresh --force
       php artisan db:seed --class="DaalderSeeder" --force
