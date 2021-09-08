@@ -44,6 +44,11 @@ info:
     - heading: "Apps & Services"
       content: "PHP 7.4<br/>MariaDB<br/>Elastic Search"
 
+plans:
+  exclude:
+    - small
+    - standard
+    - medium
 
 # This key describes the initialization call made to the master environment at
 # project creation time. This is part of the full v2 UI operation mode, which
