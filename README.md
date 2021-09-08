@@ -35,12 +35,12 @@ The following changes have been made relative to a plain Laravel project.  If us
 Also, files from vendors have been published as per Daalder onboarding process
 
 ```
-lando artisan config:clear
-lando artisan vendor:publish --provider='Pionect\Daalder\DaalderServiceProvider'
-lando artisan vendor:publish --tag=backoffice-config
-lando artisan vendor:publish --tag=migrations
-lando artisan vendor:publish --tag=database
-lando artisan vendor:publish --tag=public
+php artisan config:clear
+php artisan vendor:publish --provider='Pionect\Daalder\DaalderServiceProvider'
+php artisan vendor:publish --tag=backoffice-config
+php artisan vendor:publish --tag=migrations
+php artisan vendor:publish --tag=database
+php artisan vendor:publish --tag=public
 ```
 
 and checked into this repository.
