@@ -46,6 +46,7 @@ info:
 
 plans:
   exclude:
+    - development
     - small
     - standard
     - medium
