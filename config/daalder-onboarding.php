@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'active' => true,
+    'active' => false,
 ];
