@@ -32,7 +32,7 @@ hooks:
   deploy: |
     set -e
     if [ -f "app.built" ] && ! [ -f "storage/auth-clients.txt" ]; then
-      php artisan package:discover
+      php artisan package:discover --ansi
       php artisan migrate:fresh --force
       php artisan db:seed --class="DaalderSeeder" --force
       php artisan elastic:sync
