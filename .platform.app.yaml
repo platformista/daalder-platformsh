@@ -22,6 +22,8 @@ hooks:
       composer install
       touch app.built
     else
+      echo
+      echo "IMPORTANT: BUILD SKIPPED"
       echo "Packagist authentication is required in order to fetch the daalder package."
       echo "Please add the COMPOSER_AUTH environment variable with your credentials, either by using the Web Console or by running the folllwing command:"
       echo
