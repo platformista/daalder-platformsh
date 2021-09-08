@@ -1,0 +1,130 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+
+# The name of this app. Must be unique within a project.
+name: app
+
+# The type of the application to build.
+type: php:7.4
+
+dependencies:
+  php:
+    composer/composer: '^2'
+
+build:
+  flavor: none
+
+# The hooks that will be performed when the package is deployed.
+hooks:
+  build: |
+    set -e
+    if [ -n "${COMPOSER_AUTH}" ]; then
+      composer install
+      touch app.built
+    else
+      echo "Daalder requires authorization in order to be installed. Please add the COMPOSER_AUTH environment variable with your credentials, either by using the Web Console or by running the folllwing command:"
+      echo
+      echo "platform variable:create -l project --name=COMPOSER_AUTH --value='{"http-basic": {"pionect.repo.packagist.com": {"username": "token", "password": "YOUR_TOKEN"}}}' --json=true --sensitive=true --prefix=env: --visible-build=true --visible-runtime=false -p YOUR_PLATFORM_PROJECT_ID
+    fi
+  deploy: |
+    set -e
+    if ! [ -f "app.built" ]; then
+      php artisan package:discover
+      php artisan migrate:fresh --force
+      php artisan db:seed --class="DaalderSeeder" --force
+      php artisan elastic:sync
+      php artisan passport:install --force > storage/auth-clients.txt
+      php artisan user:super-user --firstname=Admin --email=your@email.com >> storage/auth-clients.txt
+      php artisan config:clear
+      php artisan cache:clear
+    fi
+
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+  database: "db:mysql"
+  essearch: 'es:elasticsearch'
+
+# The size of the persistent disk of the application (in MB).
+disk: 2048
+
+# A LARGE PLAN deployment of this project would normally result in
+#  app (type: php:7.4, size: XL, disk: 2048)
+#  db (type: mariadb:10.4, size: XL, disk: 256)
+#  es (type: elasticsearch:7.10, size: XL, disk: 256)
+#
+# The following allows us to tune the app container so that it has 2GB of memory allocated to it
+#  app (type: php:7.4, size: L, cpu: 2, memory: 2048, disk: 2048)
+#  db (type: mariadb:10.4, size: XL, disk: 256)
+#  es (type: elasticsearch:7.10, size: L, disk: 256)
+resources:
+  base_memory: 1024 # between 64 and 1024 max
+  memory_ratio: 512 # integer between 128 and 1024 max
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+  "storage":
+    source: local
+    source_path: "storage"
+  "storage/app/public":
+    source: local
+    source_path: "public"
+  "storage/framework/views":
+    source: local
+    source_path: "views"
+  "storage/framework/sessions":
+    source: local
+    source_path: "sessions"
+  "storage/framework/cache":
+    source: local
+    source_path: "cache"
+  "storage/logs":
+    source: local
+    source_path: "logs"
+  "bootstrap/cache":
+    source: local
+    source_path: "cache"
+
+# The configuration of app when it is exposed to the web.
+web:
+  locations:
+    "/":
+      root: "public"
+      index:
+        - index.php
+      allow: true
+      passthru: "/index.php"
+    "/storage":
+      root: "storage/app/public"
+      scripts: false
+
+crons:
+  # Run Laravel's scheduler every 5 minutes, which is often as crons can run.
+  scheduler:
+    spec: '*/5 * * * *'
+    cmd: 'php artisan schedule:run'
+  # Run Laravel's queue worker task every 9 minutes
+  queue:
+    spec: '*/9 * * * *'
+    # Allow the worker to run for up to 5 minutes. That prevents
+    # a long-running queue from blocking a deploy for more than 5
+    # minutes.
+    cmd: 'php artisan queue:work --max-time=300'
+
+variables:
+  php:
+    memory_limit: "1024M"
+
+# If you have an especially large queue, you may be better off using a worker.
+# If so, comment out the `queue` cron entry and uncomment this instead. Note that
+# Doing so requires a Medium plan or larger.
+#workers:
+#    queue:
+#        size: S
+#        commands:
+#            # To minimize leakage, the queue worker will stop every hour
+#            # and get restarted automatically.
+#            start: |
+#                php artisan queue:work --max-time=3600
