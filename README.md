@@ -104,7 +104,7 @@ curl --location --request POST 'https://www.master-7rqtwti-gbbgdbsa65hqc.eu-5.pl
       --form 'scope="*"'
 ```
 
-being careful of replacing the URL with the one from the environment you would like to test. 
+being careful of replacing the URL using one of the routes from the environment you would like to test. 
 
 A successful request will result in a response such as the following:
 
