@@ -1,0 +1,3614 @@
+{
+	"info": {
+		"_postman_id": "80b619cf-e48b-411b-81a6-4dad2feb5bfb",
+		"name": "Daalder API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticated",
+			"item": [
+				{
+					"name": "Auto complete",
+					"item": [
+						{
+							"name": "Auto complete general",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/auto-complete/product/:query",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"auto-complete",
+										"product",
+										":query"
+									],
+									"variable": [
+										{
+											"key": "query",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Auto complete tag",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/auto-complete/tag/:entity/:query",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"auto-complete",
+										"tag",
+										":entity",
+										":query"
+									],
+									"variable": [
+										{
+											"key": "entity",
+											"value": ""
+										},
+										{
+											"key": "query",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Basket",
+					"item": [
+						{
+							"name": "Fetch basket",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/basket",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"basket"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete basket",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/v2/basket",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"basket"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add product to basket",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"entries\": [{\n\t\t\"product_id\": 1,\n\t\t\"amount\": 1,\n\t\t\"options\": [{\n\t\t\t\"option_id\": 1,\n\t\t\t\"option_value\": 5\n\t\t}]\n\t}]\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/basket/entries",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"basket",
+										"entries"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add upsell product to basket",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"entries\": [{\n\t\t\"product_id\": 54276,\n\t\t\"amount\": 1,\n\t\t\"options\": [{\n\t\t\t\"option_id\": 1,\n\t\t\t\"option_value\": 5\n\t\t}]\n\t}]\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/basket/add-upsell",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"basket",
+										"add-upsell"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add discount to basket",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"coupon_code\": \"test\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/basket/coupon",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"basket",
+										"coupon"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Convert offer to basket",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"offer_id\": \"23958d6876b7d87dd8f6fa8cb9e43d5f\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/basket/convert-offer",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"basket",
+										"convert-offer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Checkout basket",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"shipping_method_id\": 1,\n\t\"delivery_street\": \"Maashaven Zz\",\n\t\"delivery_house_number\": 2,\n\t\"delivery_postal_code\": \"1234AB\",\n\t\"delivery_city\": \"Teststad\",\n\t\"delivery_country_code\": \"NL\",\n\t\"store_id\": 1,\n\t\"comment\": \"test\",\n\t\"customer_id\": 1\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/basket/checkout",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"basket",
+										"checkout"
+									]
+								},
+								"description": "Convert a basket to order"
+							},
+							"response": []
+						},
+						{
+							"name": "Get shipping methods",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/basket/shipping-methods",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"basket",
+										"shipping-methods"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Request Offer",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"first_name\": \"Patrick\",\n\t\"last_name\": \"Hoogkamer\",\n\t\"phone\": \"0612345678\",\n\t\"email\": \"example@example.com\",\n\t\"body\": \"asdf\",\n\t\"referer\": \"www.google.com\",\n\t\"store_id\": 2\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/basket/request-offer",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"basket",
+										"request-offer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Clear Basket",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/v2/basket/entries",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"basket",
+										"entries"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update basket entry",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/basket/entries/:entry",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"basket",
+										"entries",
+										":entry"
+									],
+									"variable": [
+										{
+											"key": "entry",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Categories",
+					"item": [
+						{
+							"name": "Get all categories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/categories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get category products",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/categories/:categorie/products",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"categories",
+										":categorie",
+										"products"
+									],
+									"variable": [
+										{
+											"key": "categorie",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Checkout",
+					"item": [
+						{
+							"name": "Get payment methods",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/:store/payment-methods",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										":store",
+										"payment-methods"
+									],
+									"variable": [
+										{
+											"key": "store",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Customers",
+					"item": [
+						{
+							"name": "Get Customer Token",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "patrickhoogkamer@gmail.com",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "testtest",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/v2/customers/tokens",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"customers",
+										"tokens"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all customers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/customers",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get customer by ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/customers/:customer",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"customers",
+										":customer"
+									],
+									"variable": [
+										{
+											"key": "customer",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create customer",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"firstname\": \"Egbert\",\n\t\"lastname\": \"Wietses\",\n    \"email\": \"egbert@pionect.nl\",\n    \"mobile\": \"0635466546\",\n    \"telephone\": \"16545435\",\n    \"delivery_street\": \"asdf\",\n    \"delivery_housenumber\": \"123\",\n    \"delivery_postalcode\": \"1234AB\",\n    \"delivery_city\": \"asdfas\",\n    \"delivery_country_code\": \"NL\",\n    \"invoice_street\": \"asdf\",\n    \"invoice_housenumber\": \"12\",\n    \"invoice_postalcode\": \"3546AB\",\n    \"invoice_city\": \"asdfasdf\",\n    \"invoice_country_code\": \"NL\",\n    \"contact_type\": \"private\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/customers",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update customer",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"firstname\": \"John\",\n\t\"password\": \"testtest\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/customers/:customer",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"customers",
+										":customer"
+									],
+									"variable": [
+										{
+											"key": "customer",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Discount Codes",
+					"item": [
+						{
+							"name": "Get Discount Code",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/discount-codes/:code",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"discount-codes",
+										":code"
+									],
+									"variable": [
+										{
+											"key": "code",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Favorites",
+					"item": [
+						{
+							"name": "Delete product favorite",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/products/:product/favorite",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product",
+										"favorite"
+									],
+									"variable": [
+										{
+											"key": "product",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create product favorite",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/products/:product/favorite",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product",
+										"favorite"
+									],
+									"variable": [
+										{
+											"key": "product",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch customer favorites",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/favorite",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"favorite"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Me",
+					"item": [
+						{
+							"name": "Fetch my user info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/me",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"me"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Media",
+					"item": [
+						{
+							"name": "Upload media",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "media",
+											"value": "",
+											"type": "file"
+										},
+										{
+											"key": "type",
+											"value": "Product",
+											"type": "text"
+										},
+										{
+											"key": "type_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/v2/media",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"media"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Offers",
+					"item": [
+						{
+							"name": "Get offer",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/offers/:token",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"offers",
+										":token"
+									],
+									"variable": [
+										{
+											"key": "token",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Orders",
+					"item": [
+						{
+							"name": "Fetch an order",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/orders/:order",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"orders",
+										":order"
+									],
+									"variable": [
+										{
+											"key": "order",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new order",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"store_id\": 1,\n\t\"state\": \"open\"\n\t\"order_rows\": [{\n\t    \"sku\": \"EX2000588\",\n\t    \"amount\": 1\n\t}]\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/orders",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit an order",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"store_id\": 1,\n\t\"state\": \"cancelled\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/orders/:order",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"orders",
+										":order"
+									],
+									"variable": [
+										{
+											"key": "order",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify an order state",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"state\": \"open\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/orders/:order/state",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"orders",
+										":order",
+										"state"
+									],
+									"variable": [
+										{
+											"key": "order",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pay order",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"payment_method_id\": 1,\n\t\"order_id\": 3591288,\n\t\"redirect_url\": \"https://pionect.nl\",\n\t\"cancel_url\": \"https://payment-canceled.nl\",\n\t\"issuer_id\": \"3151\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/order/pay",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"order",
+										"pay"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Procurements",
+					"item": [
+						{
+							"name": "Get procurement",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/procurements/:procurement",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"procurements",
+										":procurement"
+									],
+									"variable": [
+										{
+											"key": "procurement",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create new procurement",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"product_id\": 1,\n\t\"supplier_id\": 3,\n\t\"sku\": \"123456\",\n\t\"purchase_price\": 10,\n\t\"is_drop_shipped\": true,\n\t\"is_preferred\": true\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/procurements",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"procurements"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update existing procurement",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"product_id\": 1,\n\t\"supplier_id\": 3,\n\t\"sku\": \"123456\",\n\t\"purchase_price\": 10,\n\t\"is_drop_shipped\": true,\n\t\"is_preferred\": false\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/procurements/:procurement",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"procurements",
+										":procurement"
+									],
+									"variable": [
+										{
+											"key": "procurement",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete existing procurement",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/v2/procurements/:procurement",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"procurements",
+										":procurement"
+									],
+									"variable": [
+										{
+											"key": "procurement",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Attribute",
+							"item": [
+								{
+									"name": "Fetch list of attributes",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-attribute",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute"
+											]
+										},
+										"description": "Fetch list of attributes"
+									},
+									"response": []
+								},
+								{
+									"name": "Create attribute",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Cache-Control",
+												"value": "no-cache",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"T-shirt\"\n}"
+										},
+										"url": {
+											"raw": "{{url}}/v2/product-attribute",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Fetch an attribute",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-attribute/:attribute",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute",
+												":attribute"
+											],
+											"variable": [
+												{
+													"key": "attribute",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Edit attribute",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"api-test3\"\n}"
+										},
+										"url": {
+											"raw": "{{url}}/v2/product-attribute/:attribute",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute",
+												":attribute"
+											],
+											"variable": [
+												{
+													"key": "attribute",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete attribute",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-attribute/:attribute",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute",
+												":attribute"
+											],
+											"variable": [
+												{
+													"key": "attribute",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "AttributeGroup",
+							"item": [
+								{
+									"name": "Fetch an attribute group",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-attribute-group/:group",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute-group",
+												":group"
+											],
+											"variable": [
+												{
+													"key": "group",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Fetch list of attribute groups",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-attribute-group",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute-group"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create attribute group",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-attribute-group",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute-group"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Edit attribute group",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-attribute-group/:group",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute-group",
+												":group"
+											],
+											"variable": [
+												{
+													"key": "group",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete attribute group",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-attribute-group/:group",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute-group",
+												":group"
+											],
+											"variable": [
+												{
+													"key": "group",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "AttributeOption",
+							"item": [
+								{
+									"name": "Edit attribute option",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-attribute-option/:attribute",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute-option",
+												":attribute"
+											],
+											"variable": [
+												{
+													"key": "attribute",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete attribute option",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-attribute-option/:option",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute-option",
+												":option"
+											],
+											"variable": [
+												{
+													"key": "option",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get attribute options",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-attribute-option/:attribute",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute-option",
+												":attribute"
+											],
+											"variable": [
+												{
+													"key": "attribute",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create attribute option",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-attribute-option/:attribute/option",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-attribute-option",
+												":attribute",
+												"option"
+											],
+											"variable": [
+												{
+													"key": "attribute",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "AttributeSet",
+							"item": [
+								{
+									"name": "Fetch list of attribute sets",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/attribute-sets",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"attribute-sets"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create attribute set",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"T-shirt\"\n}"
+										},
+										"url": {
+											"raw": "{{url}}/v2/attribute-sets",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"attribute-sets"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete attribute set",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{url}}/v2/attribute-sets/:set",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"attribute-sets",
+												":set"
+											],
+											"variable": [
+												{
+													"key": "set",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Edit attribute set",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"Update attribute\"\n}"
+										},
+										"url": {
+											"raw": "{{url}}/v2/attribute-sets/:set",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"attribute-sets",
+												":set"
+											],
+											"variable": [
+												{
+													"key": "set",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get all attributeset properties",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/attribute-sets/:set/property",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"attribute-sets",
+												":set",
+												"property"
+											],
+											"variable": [
+												{
+													"key": "set",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create property for attributeset",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/attribute-sets/:set/property",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"attribute-sets",
+												":set",
+												"property"
+											],
+											"variable": [
+												{
+													"key": "set",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Property",
+							"item": [
+								{
+									"name": "Create property option",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-property/1/option",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-property",
+												"1",
+												"option"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update product property",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/product-property/:property",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"product-property",
+												":property"
+											],
+											"variable": [
+												{
+													"key": "property",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete product property",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Template",
+							"item": [
+								{
+									"name": "Fetch all product templates",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-template",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-template"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Fetch a product template",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-template/:template",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-template",
+												":template"
+											],
+											"variable": [
+												{
+													"key": "template",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create product template",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-template",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-template"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update product template",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-template/:template",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-template",
+												":template"
+											],
+											"variable": [
+												{
+													"key": "template",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete product template",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-template/:template",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-template",
+												":template"
+											],
+											"variable": [
+												{
+													"key": "template",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Variable",
+							"item": [
+								{
+									"name": "List product variables",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/products/:product/variables",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"products",
+												":product",
+												"variables"
+											],
+											"variable": [
+												{
+													"key": "product",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create new product variable",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"Example variable\",\n\t\"type\": \"checkbox\",\n\t\"required\": true\n}"
+										},
+										"url": {
+											"raw": "{{url}}/v2/products/:product/variables",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"products",
+												":product",
+												"variables"
+											],
+											"variable": [
+												{
+													"key": "product",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete product variable",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-variable/:variable",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-variable",
+												":variable"
+											],
+											"variable": [
+												{
+													"key": "variable",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update product variable",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-variation/:variable",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-variation",
+												":variable"
+											],
+											"variable": [
+												{
+													"key": "variable",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Variation",
+							"item": [
+								{
+									"name": "Fetch product variation",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-variation/:variation",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-variation",
+												":variation"
+											],
+											"variable": [
+												{
+													"key": "variation",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update product variation",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-variation/:variation",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-variation",
+												":variation"
+											],
+											"variable": [
+												{
+													"key": "variation",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete product variation",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/product-variation/:variation",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"product-variation",
+												":variation"
+											],
+											"variable": [
+												{
+													"key": "variation",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create variation for product",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/products/:product/variations",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"products",
+												":product",
+												"variations"
+											],
+											"variable": [
+												{
+													"key": "product",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get all variations for product",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/v2/products/:product/variations",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"v2",
+												"products",
+												":product",
+												"variations"
+											],
+											"variable": [
+												{
+													"key": "product",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Get all products",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/products",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get product",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/products/:product?includes=properties",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product"
+									],
+									"query": [
+										{
+											"key": "includes",
+											"value": "properties"
+										}
+									],
+									"variable": [
+										{
+											"key": "product",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create new product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"sku\": \"123456\",\n\t\"name\": \"Daalder T-shirt\",\n\t\"ean\": \"1234567891234\",\n\t\"product_type_id\": 1,\n\t\"price\": 10,\n\t\"description\": \"Daalder T-shirt\",\n\t\"productattributeset_id\": 1\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/products",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update existing product",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"sku\": \"123456\",\n\t\"name\": \"Example Product Updated\",\n\t\"ean\": \"1234567891234\",\n\t\"product_type_id\": 1,\n\t\"price\": 10,\n\t\"description\": \"Product description\",\n\t\"productattributeset_id\": 1\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/products/:product",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product"
+									],
+									"variable": [
+										{
+											"key": "product",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete existing product",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/v2/products/:product",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product"
+									],
+									"variable": [
+										{
+											"key": "product",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6dde8723-dc41-48bf-9454-079912cbab5a",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "446a7228-3afb-4382-99fb-cf54c8d572e4",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Reviews",
+					"item": [
+						{
+							"name": "Get product reviews",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/products/:product/reviews",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product",
+										"reviews"
+									],
+									"variable": [
+										{
+											"key": "product",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get product review",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/products/:product/reviews/:review",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product",
+										"reviews",
+										":review"
+									],
+									"variable": [
+										{
+											"key": "product",
+											"value": ""
+										},
+										{
+											"key": "review",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create product review",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\": \"Review title\",\n\t\"review\": \"Review body\",\n\t\"is_recommended\": true,\n\t\"stars\": 5\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/products/:product/reviews",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product",
+										"reviews"
+									],
+									"variable": [
+										{
+											"key": "product",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update product review",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\": \"Review title updated\",\n\t\"review\": \"Review body\",\n\t\"is_recommended\": true,\n\t\"stars\": 4\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/products/:product/reviews/:review",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product",
+										"reviews",
+										":review"
+									],
+									"variable": [
+										{
+											"key": "product",
+											"value": ""
+										},
+										{
+											"key": "review",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete product review",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\": \"Review title updated\",\n\t\"review\": \"Review body\",\n\t\"is_recommended\": true,\n\t\"stars\": 4\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/products/:product/reviews/:review",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product",
+										"reviews",
+										":review"
+									],
+									"variable": [
+										{
+											"key": "product",
+											"value": ""
+										},
+										{
+											"key": "review",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Single sign in",
+					"item": [
+						{
+							"name": "Single sign in",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/single-sign-in",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"single-sign-in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get customer",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/single-sign-in/:token",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"single-sign-in",
+										":token"
+									],
+									"variable": [
+										{
+											"key": "token",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Stock",
+					"item": [
+						{
+							"name": "Fetch stock",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/stock/:product",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"stock",
+										":product"
+									],
+									"variable": [
+										{
+											"key": "product",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch stock by SKU",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/stock/:sku",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"stock",
+										":sku"
+									],
+									"variable": [
+										{
+											"key": "sku",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify stock",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"in_stock\": 10015,\n\t\"planned_in\": 1,\n\t\"planned_out\": 1\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/stock/:product",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"stock",
+										":product"
+									],
+									"variable": [
+										{
+											"key": "product",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Stores",
+					"item": [
+						{
+							"name": "List of stores",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/stores",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"stores"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create store",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/stores",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"stores"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit store",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/stores/:store",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"stores",
+										":store"
+									],
+									"variable": [
+										{
+											"key": "store",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch store",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/stores/:store",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"stores",
+										":store"
+									],
+									"variable": [
+										{
+											"key": "store",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete store",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/stores/:store",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"stores",
+										":store"
+									],
+									"variable": [
+										{
+											"key": "store",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add product to store",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/stores/:store/product/:product",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"stores",
+										":store",
+										"product",
+										":product"
+									],
+									"variable": [
+										{
+											"key": "store",
+											"value": ""
+										},
+										{
+											"key": "product",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove product from store",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/stores/:store/product/:product",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"stores",
+										":store",
+										"product",
+										":product"
+									],
+									"variable": [
+										{
+											"key": "store",
+											"value": ""
+										},
+										{
+											"key": "product",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Supliers",
+					"item": [
+						{
+							"name": "Fetch a supplier",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/suppliers/:supplier",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"suppliers",
+										":supplier"
+									],
+									"variable": [
+										{
+											"key": "supplier",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit supplier",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/suppliers/:supplier",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"suppliers",
+										":supplier"
+									],
+									"variable": [
+										{
+											"key": "supplier",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create supplier",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/suppliers",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"suppliers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete supplier",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/suppliers/:supplier",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"suppliers",
+										":supplier"
+									],
+									"variable": [
+										{
+											"key": "supplier",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Url",
+					"item": [
+						{
+							"name": "Product By Url",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "db70a83f-fa5d-4eb6-bdc5-a37f072b50ba",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "12b17576-2c4b-4e8a-b516-8f2d2ff6ce05",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Fetch user info of current user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/user",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch Webhook Token",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/users/webhook_token",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"users",
+										"webhook_token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Regenerate Webhook Token",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/v2/users/webhook_token",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"users",
+										"webhook_token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch a user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/users/:user",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"users",
+										":user"
+									],
+									"variable": [
+										{
+											"key": "user",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a user",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"firstname\": \"John\",\n\t\"lastname\": \"Doe\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/users/:user",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"users",
+										":user"
+									],
+									"variable": [
+										{
+											"key": "user",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register a backoffice user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"firstname\": \"John\",\n\t\"lastname\": \"Doe\",\n\t\"email\": \"john.doe@pionect.nl\",\n\t\"password\": \"password\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/v2/user/logout",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"user",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Webhooks",
+					"item": [
+						{
+							"name": "Register a webhook",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"event\": \"created\",\n\t\"model\": \"Product\",\n\t\"url\": \"http://pionect.nl\",\n\t\"service\": \"Example service\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/webhooks",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"webhooks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch webhook",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/webhooks/:webhook",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"webhooks",
+										":webhook"
+									],
+									"variable": [
+										{
+											"key": "webhook",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List registered webhooks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v2/webhooks",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"webhooks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove webhook",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/v2/webhooks/:webhook",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"webhooks",
+										":webhook"
+									],
+									"variable": [
+										{
+											"key": "webhook",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Wishlists",
+					"item": [
+						{
+							"name": "Fetch a wishlist entry",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/wishlists/:wishlist/entries/:entry",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"wishlists",
+										":wishlist",
+										"entries",
+										":entry"
+									],
+									"variable": [
+										{
+											"key": "wishlist",
+											"value": ""
+										},
+										{
+											"key": "entry",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store a wishlist entry",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"product_id\": 1\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/wishlists/:wishlist/entries",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"wishlists",
+										":wishlist",
+										"entries"
+									],
+									"variable": [
+										{
+											"key": "wishlist",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit a wishlist entry",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"amount\": 10\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/wishlists/:wishlist/entries/:product",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"wishlists",
+										":wishlist",
+										"entries",
+										":product"
+									],
+									"variable": [
+										{
+											"key": "wishlist",
+											"value": ""
+										},
+										{
+											"key": "product",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a wishlist entry",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/v2/wishlists/:wishlist/entries/:entry",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"wishlists",
+										":wishlist",
+										"entries",
+										":entry"
+									],
+									"variable": [
+										{
+											"key": "wishlist",
+											"value": ""
+										},
+										{
+											"key": "entry",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store a wishlist",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"My Wishlist\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/wishlists",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"wishlists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit a wishlist",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"My Wishlist Edited\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v2/wishlists/:wishlist",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"wishlists",
+										":wishlist"
+									],
+									"variable": [
+										{
+											"key": "wishlist",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a wishlist",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/v2/wishlists/:wishlist",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"wishlists",
+										":wishlist"
+									],
+									"variable": [
+										{
+											"key": "wishlist",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch a wishlist",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Daalder-Customer-Token",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v2/wishlists/:wishlist",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v2",
+										"wishlists",
+										":wishlist"
+									],
+									"variable": [
+										{
+											"key": "wishlist",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Get Auth Clients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create password reset token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "patrickhoogkamer@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "http://google.nl/{token}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/v2/password-reset-token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v2",
+								"password-reset-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Password Reset Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v2/password-reset-token/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v2",
+								"password-reset-token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Migrate basket",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Daalder-Customer-Token",
+								"value": "{{customer_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"session_id\": \"eyJpdiI6IkVNVFdHWkN6a1lzaG92dFZIVENndGc9PSIsInZhbHVlIjoiZUo5VFV1UEl5ekZIN3MyTXlpaHFwckZOTVVuTVp5XC92S2F4enNXbXRxXC9rN05KcmM5cStEdHBweDRKMkxPOVZVNkZ2SG9ZV1Ezb0lsbUthUkFraDdUdz09IiwibWFjIjoiNmM0YTc5MTBlMmE5MjBjMzgwMjFlNDczMzhjYTE5MzE5YWJhOWU5NDMyM2EzMGIwN2E1N2I3MmJkNGZjYjU0YiJ9\",\n\t\"store_id\": 2\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v2/migrate-basket",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v2",
+								"migrate-basket"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "57c36c4f-3e75-4577-9ee4-a92d7a99ab57",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "85aefcba-3507-4e9e-9f60-0506543ee545",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Get access token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "9",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "*",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/oauth/token",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e3782148-0e6e-4460-969c-ab8adee7370b",
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.add({key: 'Content-Type', value: 'application/json' });",
+					"pm.request.headers.add({key: 'Accept-Language', value: 'nl' });"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b65b96d9-e98f-4323-837e-dd7b87aa0f54",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "04587e58-aadb-49b6-9c85-0804dc20c909",
+			"key": "customer_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "878c5c6a-a65c-4310-9111-9ee80dd2b079",
+			"key": "url",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"id": "0e7701d3-b1b8-4470-a9e8-c307e7b77241",
+			"key": "url",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "5fb30ff7-7b87-4b3c-a296-7380f26626ac",
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

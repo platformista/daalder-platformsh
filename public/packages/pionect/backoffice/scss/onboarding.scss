@@ -1,0 +1,70 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    background-color: whitesmoke;
+    background-image: url("https://source.unsplash.com/featured/1920x1280/daily?landscape");
+
+    header {
+        padding: 15px;
+        background-color: white;
+
+        .logo {
+            height: 55px;
+            padding: 10px 0px;
+
+            img {
+                height: 35px;
+                width: auto;
+            }
+
+            @media (min-width: 1280px) and (max-width: 1300px) {
+                .logo {
+                    //display: none;
+                }
+            }
+        }
+
+        a {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 800px) {
+            a {
+                margin-left: 0 !important;
+            }
+        }
+    }
+
+    main {
+        width: 100%;
+        height: 100%;
+        padding: 2rem;
+    }
+
+    .loader {
+        border-top-color: #3498db;
+        -webkit-animation: spinner 1.5s linear infinite;
+        animation: spinner 1.5s linear infinite;
+        display: none;
+    }
+
+    @-webkit-keyframes spinner {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spinner {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .cursor-not-allowed {
+        .loader {
+            display: block;
+        }
+    }
+}
