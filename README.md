@@ -30,6 +30,7 @@ The following changes have been made relative to a plain Laravel project.  If us
 
 * `auth.guards.api.driver` set to `passport`
 * `auth.providers.users.model` set to `'Pionect\Daalder\Models\User\User::class'`
+* `daalder-onboarding.active` set to `false` (to disable the Daalder onboarding wizard provided by default at `/onboarding`)
 * `'cors' => \Fruitcake\Cors\HandleCors::class` added to `App\Http\Kernel::$routeMiddleware`
 
 Also, files from vendors have been published as per Daalder onboarding process
@@ -104,7 +105,7 @@ curl --location --request POST 'https://www.master-7rqtwti-gbbgdbsa65hqc.eu-5.pl
       --form 'scope="*"'
 ```
 
-being careful of replacing the URL using one of the routes from the environment you would like to test. 
+being careful of changing the URL using the `www` route from the environment you would like to test.
 
 A successful request will result in a response such as the following:
 
