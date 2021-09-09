@@ -35,7 +35,7 @@ The following changes have been made relative to a plain Laravel project.  If us
 
 Also, files from vendors have been published as per Daalder onboarding process
 
-```
+```shell
 php artisan config:clear
 php artisan vendor:publish --provider='Pionect\Daalder\DaalderServiceProvider'
 php artisan vendor:publish --tag=backoffice-config
@@ -56,7 +56,8 @@ When you first deploy this template to Platform.sh, it will use `DEVELOPMENT` pl
 When you purchase Daalder, you receive authentication credentials to fetch the package from a [Private Packagist](https://packagist.com/) repository.
 In order to use this authentication with Platform.sh, you must enter your credentials as a `COMPOSER_AUTH` environment variable. The easiest way to do this is to use the [Platform.sh CLI](https://docs.platform.sh/development/cli.html):
 
-```
+```shell
+# You can omit the "-p YOUR_PLATFORM_PROJECT_ID" part if you are running the command from a platform checkout of your project.
 platform variable:create -l project --name=COMPOSER_AUTH --value='{"http-basic": {"pionect.repo.packagist.com": {"username": "token", "password": "YOUR_TOKEN"}}}' --json=true --sensitive=true --prefix=env: --visible-build=true --visible-runtime=false -p YOUR_PLATFORM_PROJECT_ID
 ```
 
@@ -74,30 +75,29 @@ If everything went according to plan, then a file was generated in the applicati
 storage/auth-clients.txt
 ```
 
-You can access the content of this file by SSH'ing into the application container. If you have the CLI installed, then:
+What you need to do now is to get the last two lines of that file. If you have the CLI installed, then:
 
-```
-# platform ssh -p YOUR_PROJECT_ID
-```
-
-Otherwise, the Web Console will provide you with an SSH command line. Just go to your project, then to the environment you want to access, and then click the SSH button in the top right corner.
-
-Once you are in, you can run:
-
-```
-# tail -n2 storage/auth-clients.txt
+```shell
+# You can omit the "-p YOUR_PLATFORM_PROJECT_ID" part if you are running the command from a platform checkout of your project.
+platform ssh "tail -n2 storage/auth-clients.txt" -p YOUR_PLATFORM_PROJECT_ID
 ```
 
-This should give you an output like the following:
+Otherwise, the Web Console will provide you with an SSH command line. Just go to your project, then to the environment you want to access, and then click the SSH button in the top right corner. Once you have SSH'd into the application container, you can run:
+
+```shell
+tail -n2 storage/auth-clients.txt
+```
+
+In either instances, the output should be something like the following:
 
 ```
 Client ID: 3
 Secret: XhGHvCChMN4rVHy4moZuVIxLbkeB8FeQaVQ03Isi
 ```
 
-You can use those details with the following `curl` request
+You can now use those details with the following `curl` request
 
-```
+```shell
 curl --location --request POST 'https://www.master-7rqtwti-gbbgdbsa65hqc.eu-5.platformsh.site/oauth/token' \
       --form 'grant_type="client_credentials"' \
       --form 'client_id="3"' \
@@ -105,11 +105,11 @@ curl --location --request POST 'https://www.master-7rqtwti-gbbgdbsa65hqc.eu-5.pl
       --form 'scope="*"'
 ```
 
-being careful of changing the URL using the `www` route from the environment you would like to test.
+being careful of changing the URL using the primary route (see `platform route:get --help`) from the environment you would like to test.
 
 A successful request will result in a response such as the following:
 
-```
+```json
 {"token_type":"Bearer","expires_in":31536000,"access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiNDVlOTQyNDVkOWRlMWRkOGExYWZlNThjN2I2OTExY2RiMTcyMmUzNTQ5NDBkYThlZWRiYjQxMGVjNDM1NTYzOWYzM2UwNDI5YjFjMDdhN2QiLCJpYXQiOjE2MzExMDUzNjYsIm5iZiI6MTYzMTEwNTM2NiwiZXhwIjoxNjYyNjQxMzY1LCJzdWIiOiIiLCJzY29wZXMiOlsidmlldy1icmFuZCIsInN0b3JlLWJyYW5kIiwiZGVsZXRlLWJyYW5kIiwidmlldy1jb21wb25lbnRzIiwic3RvcmUtY29tcG9uZW50cyIsImRlbGV0ZS1jb21wb25lbnRzIiwidmlldy1jb25maWciLCJzdG9yZS1jb25maWciLCJkZWxldGUtY29uZmlnIiwidmlldy1jdXN0b21lciIsInN0b3JlLWN1c3RvbWVyIiwiZGVsZXRlLWN1c3RvbWVyIiwidmlldy1kaXNjb3VudCIsInN0b3JlLWRpc2NvdW50IiwiZGVsZXRlLWRpc2NvdW50Iiwidmlldy1sZWFkIiwic3RvcmUtbGVhZCIsImRlbGV0ZS1sZWFkIiwidmlldy1vcmRlciIsInN0b3JlLW9yZGVyIiwiZGVsZXRlLW9yZGVyIiwidmlldy1vZmZlciIsInN0b3JlLW9mZmVyIiwiZGVsZXRlLW9mZmVyIiwidmlldy1wcm9kdWN0Iiwic3RvcmUtcHJvZHVjdCIsImRlbGV0ZS1wcm9kdWN0Iiwidmlldy1wcm9kdWN0LWF0dHJpYnV0ZSIsInN0b3JlLXByb2R1Y3QtYXR0cmlidXRlIiwiZGVsZXRlLXByb2R1Y3QtYXR0cmlidXRlIiwidmlldy1wcm9kdWN0LWF0dHJpYnV0ZS1ncm91cCIsInN0b3JlLXByb2R1Y3QtYXR0cmlidXRlLWdyb3VwIiwiZGVsZXRlLXByb2R1Y3QtYXR0cmlidXRlLWdyb3VwIiwidmlldy1wcm9kdWN0LXByb3BlcnR5Iiwic3RvcmUtcHJvZHVjdC1wcm9wZXJ0eSIsImRlbGV0ZS1wcm9kdWN0LXByb3BlcnR5Iiwic3RvcmUtcHJvZHVjdC1zZWxlY3Rpb24iLCJkZWxldGUtcHJvZHVjdC1zZWxlY3Rpb24iLCJzdG9yZS1wcm9kdWN0LXNlbGVjdGlvbi1maWx0ZXIiLCJkZWxldGUtcHJvZHVjdC1zZWxlY3Rpb24tZmlsdGVyIiwidmlldy12YXJpYWJsZSIsInN0b3JlLXZhcmlhYmxlIiwiZGVsZXRlLXZhcmlhYmxlIiwidmlldy1mYXZvcml0ZSIsInN0b3JlLWZhdm9yaXRlIiwiZGVsZXRlLWZhdm9yaXRlIiwidmlldy12YXJpYXRpb24iLCJzdG9yZS12YXJpYXRpb24iLCJkZWxldGUtdmFyaWF0aW9uIiwidmlldy1wcm9kdWN0LXRlbXBsYXRlIiwic3RvcmUtcHJvZHVjdC10ZW1wbGF0ZSIsImRlbGV0ZS1wcm9kdWN0LXRlbXBsYXRlIiwidmlldy1yZXZpZXciLCJzdG9yZS1yZXZpZXciLCJkZWxldGUtcmV2aWV3IiwiY2hhbmdlLXN0YXRlLXJldmlldyIsInN0b3JlLXJldmlldy1pbnZpdGUiLCJ2aWV3LXN0YXR1cyIsInZpZXctc3VwcGxpZXIiLCJzdG9yZS1zdXBwbGllciIsImRlbGV0ZS1zdXBwbGllciIsInZpZXctdGFnIiwic3RvcmUtdGFnIiwiZGVsZXRlLXRhZyIsInZpZXctdXNlciIsInN0b3JlLXVzZXIiLCJkZWxldGUtdXNlciIsInZpZXctcm9sZSIsInN0b3JlLXJvbGUiLCJkZWxldGUtcm9sZSIsInZpZXctcGVybWlzc2lvbiIsInN0b3JlLXBlcm1pc3Npb24iLCJkZWxldGUtcGVybWlzc2lvbiIsInZpZXctcGFnZSIsInN0b3JlLXBhZ2UiLCJkZWxldGUtcGFnZSIsInZpZXctY2F0ZWdvcnkiLCJzdG9yZS1jYXRlZ29yeSIsImRlbGV0ZS1jYXRlZ29yeSIsInZpZXctc2VydmljZSIsInN0b3JlLXNlcnZpY2UiLCJkZWxldGUtc2VydmljZSIsInZpZXctc2hpcHBpbmciLCJzdG9yZS1zaGlwcGluZyIsImRlbGV0ZS1zaGlwcGluZyIsInZpZXctdmF0Iiwic3RvcmUtdmF0IiwiZGVsZXRlLXZhdCIsInZpZXctc3RvcmUiLCJzdG9yZS1zdG9yZSIsImRlbGV0ZS1zdG9yZSIsInZpZXctcGlja3VwLXBvaW50Iiwic3RvcmUtcGlja3VwLXBvaW50IiwiZGVsZXRlLXBpY2t1cC1wb2ludCIsInZpZXctc3RvY2siLCJzdG9yZS1zdG9jayIsImRlbGV0ZS1zdG9jayIsInZpZXctcHJvY3VyZW1lbnQiLCJzdG9yZS1wcm9jdXJlbWVudCIsImRlbGV0ZS1wcm9jdXJlbWVudCIsInZpZXctcGF5bWVudCIsInN0b3JlLXBheW1lbnQiLCJkZWxldGUtcGF5bWVudCIsInZpZXctcHJvZHVjdC1hdHRyaWJ1dGUtc2V0Iiwic3RvcmUtcHJvZHVjdC1hdHRyaWJ1dGUtc2V0IiwiZGVsZXRlLXByb2R1Y3QtYXR0cmlidXRlLXNldCIsInZpZXctbWFwIiwidmlldy1zZWFyY2giLCJ2aWV3LWVtYWlsLXRlbXBsYXRlIiwic3RvcmUtZW1haWwtdGVtcGxhdGUiLCJkZWxldGUtZW1haWwtdGVtcGxhdGUiLCJ2aWV3LW1lZGlhIiwic3RvcmUtbWVkaWEiLCJkZWxldGUtbWVkaWEiLCJ2aWV3LW9hdXRoLWNsaWVudCIsInN0b3JlLW9hdXRoLWNsaWVudCIsImRlbGV0ZS1vYXV0aC1jbGllbnQiLCJ2aWV3LXBhc3N3b3JkLXRva2VuIiwic3RvcmUtcGFzc3dvcmQtdG9rZW4iLCJkZWxldGUtcGFzc3dvcmQtdG9rYW4iXX0.xxchqbJw1Plzzu7oEJufDdB_kDrqNiJKgrv7WCNkCBGkkMN9yrsOHWz_jhMABcLADqBSPER_MHivCEymvZcLRoMJUCWUNGoD-s-px5XQWm63qf_j4K3bFtQdHQdOfGA_hQuahYyJmNCFHV0PFAyPfvGuoXajMnSioH7WwbNOp_LxBfTB_BKloC_EqGKSQt4gQEHEORefd9H7gHJg-P48TqXQ1PgyBtaDqhshCcSEz8e48NprhZrmHrYafT6D8L81frntWe_Ens5nZycY5xMb2ve8xzTM4NIRMf-iOR2ALbhXa9zFugR3vaIzLreBp593xIjBISf1q7Pebt65ljpVxClWyh4hlf5OVppXcpgx5ahEveloCFiqBFMfS0H7tZR2YXcPcs0hBjpz8E_UfiE8tlelU2qzrUHqQu2fSW-txL7Ap4yFhvd46h-b0PhBORAVFG_B9sog4wh8fNlhf_AWo3CzwVOIBgotnexQcgd7Jbysxy6B48KTvSz8a8gxHcPXK3aRzhYzQmuO9BbTIY7CoVuJS9UZmjmUZ9-uZKLljnvSZxLWucnAUnPXsUSSXE7eywNb2jTedumv_YJVyp0kxuYEJ3cfZ3ML8HZgAo5pssFtS9HOysJ_aR7DIN9Nzm-68py4jsp0wUyqdMfgHV7UatHAARmMWVJizdH3p52MOlc"}
 ```
 
