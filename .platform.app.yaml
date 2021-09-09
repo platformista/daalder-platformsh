@@ -19,8 +19,7 @@ hooks:
   build: |
     set -e
     if [ "$(echo $COMPOSER_AUTH | jq -r '."http-basic"."pionect.repo.packagist.com".username')" = "token" ]; then
-      composer install
-      touch app.built
+      composer update
     else
       echo
       echo "IMPORTANT: BUILD SKIPPED"
@@ -31,16 +30,19 @@ hooks:
     fi
   deploy: |
     set -e
-    if [ -f "app.built" ] && ! [ -f "storage/auth-clients.txt" ]; then
+    if [ -d "vendor" ]; then
       php artisan package:discover --ansi
-      php artisan migrate:fresh --force
-      php artisan db:seed --class="DaalderSeeder" --force
-      php artisan elastic:sync
-      php artisan passport:install --force > storage/auth-clients.txt
-      php artisan user:super-user --firstname=Admin --email=your@email.com >> storage/auth-clients.txt
+      php artisan migrate --force
+      if ! [ -f "storage/auth-clients.txt" ]; then
+        php artisan db:seed --class="DaalderSeeder" --force
+        php artisan elastic:sync
+        php artisan passport:install --force > storage/auth-clients.txt
+        php artisan user:super-user --firstname=Admin --email=your@email.com >> storage/auth-clients.txt
+      fi
       php artisan config:clear
       php artisan cache:clear
     fi
+
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
