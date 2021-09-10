@@ -1,0 +1,23 @@
+Index: vendor/pionect/daalder/src/Services/Oauth/ClientFetcher.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vendor/pionect/daalder/src/Services/Oauth/ClientFetcher.php b/vendor/pionect/daalder/src/Services/Oauth/ClientFetcher.php
+--- a/vendor/pionect/daalder/src/Services/Oauth/ClientFetcher.php	(date 1631269341343)
++++ b/vendor/pionect/daalder/src/Services/Oauth/ClientFetcher.php	(date 1631269341343)
+@@ -51,10 +51,10 @@
+         $clientsQuery = Client::query()
+             ->select(
+                 'oauth_clients.*',
+-                'user.email',
+-                'user.firstname',
+-                'user.lastname',
+-                'user.lastlogin'
++                'users.email',
++                'users.firstname',
++                'users.lastname',
++                'users.lastlogin'
+             )
+             ->leftJoin(User::table(), function ($join) {
+                 $join->on(User::table().'.id', 'oauth_clients.user_id');
