@@ -46,11 +46,6 @@ php artisan vendor:publish --tag=public
 
 and checked into this repository.
 
-## Platform.sh minimum requirements for Daalder
-
-Due to Daalder's requirement of a minimum 1GB PHP memory limit, this template requires at least a `LARGE` plan.
-When you first deploy this template to Platform.sh, it will use `DEVELOPMENT` plan. Therefore, you must upgrade the plan after the first deployment. You can do this from the Web Console.
-
 ## Private Packagist authentication required
 
 When you purchase Daalder, you receive authentication credentials to fetch the package from a [Private Packagist](https://packagist.com/) repository.
