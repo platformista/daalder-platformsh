@@ -55,19 +55,6 @@ relationships:
 # The size of the persistent disk of the application (in MB).
 disk: 2048
 
-# A LARGE PLAN deployment of this project would normally result in
-#  app (type: php:7.4, size: XL, disk: 2048)
-#  db (type: mariadb:10.4, size: XL, disk: 256)
-#  es (type: elasticsearch:7.10, size: XL, disk: 256)
-#
-# The following allows us to tune the app container so that it has 2GB of memory allocated to it
-#  app (type: php:7.4, size: L, cpu: 2, memory: 2048, disk: 2048)
-#  db (type: mariadb:10.4, size: XL, disk: 256)
-#  es (type: elasticsearch:7.10, size: L, disk: 256)
-resources:
-  base_memory: 1024 # between 64 and 1024 max
-  memory_ratio: 512 # integer between 128 and 1024 max
-
 # The mounts that will be performed when the package is deployed.
 mounts:
   "storage":
@@ -118,9 +105,22 @@ crons:
     # minutes.
     cmd: 'php artisan queue:work --max-time=300'
 
-variables:
-  php:
-    memory_limit: "1024M"
+# A LARGE PLAN deployment of this project would normally result in
+#  app (type: php:7.4, size: XL, disk: 2048)
+#  db (type: mariadb:10.4, size: XL, disk: 256)
+#  es (type: elasticsearch:7.10, size: XL, disk: 256)
+#
+# The following allows us to tune the app container so that it has 2GB of memory allocated to it
+#  app (type: php:7.4, size: L, cpu: 2, memory: 2048, disk: 2048)
+#  db (type: mariadb:10.4, size: XL, disk: 256)
+#  es (type: elasticsearch:7.10, size: L, disk: 256)
+#resources:
+#  base_memory: 1024 # between 64 and 1024 max
+#  memory_ratio: 512 # integer between 128 and 1024 max
+
+#variables:
+#  php:
+#    memory_limit: "1024M"
 
 # If you have an especially large queue, you may be better off using a worker.
 # If so, comment out the `queue` cron entry and uncomment this instead. Note that
