@@ -2,7 +2,7 @@
 <a href="https://console.platform.sh/projects/create-project/?template=https://github.com/vincenzo/daalder-platformsh/blob/master/template-definition.yaml&utm_campaign=deploy_on_platform?utm_medium=button&utm_source=affiliate_links&utm_content=https://github.com/vincenzo/daalder-platformsh/blob/master/template-definition.yaml" target="_blank" title="Deploy with Platform.sh"><img src="https://platform.sh/images/deploy/deploy-button-lg-blue.svg"></a>
 </p>
 
-# Daalder for Platform.sh
+# Daalder.io for Platform.sh
 
 This template provides a basic [Daalder](https://daalder.io/) set-up.  It comes pre-configured to use MariaDB database and Elastic Search.  The public files symlink is also replaced with a custom web path definition, so it is unnecessary. It is intended for you to use as a starting point and modify for your own needs.
 
