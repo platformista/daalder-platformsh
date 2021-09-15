@@ -6,4 +6,4 @@ curl --location --request POST "${BASE_URL}/oauth/token" \
 --form 'grant_type="client_credentials"' \
 --form 'client_id="'${CLIENT_ID}'"' \
 --form 'client_secret="'${CLIENT_SECRET}'"' \
---form 'scope="*"' | jq -r ".access_token"
+--form 'scope="*"' 2>/dev/null | jq -r ".access_token"
