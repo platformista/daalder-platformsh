@@ -39,6 +39,12 @@ hooks:
         php artisan elastic:sync
         php artisan passport:install --force > storage/auth-clients.txt
         php artisan user:super-user --firstname=Admin --email=your@email.com >> storage/auth-clients.txt
+      else
+        if [ "$PLATFORM_ENVIRONMENT_TYPE" != "production" ]; then
+          php artisan passport:purge
+          php artisan passport:install --force > storage/auth-clients.txt
+          php artisan user:super-user --firstname=Admin --email=your@email.com >> storage/auth-clients.txt
+        fi
       fi
       php artisan config:clear
       php artisan cache:clear
