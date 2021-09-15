@@ -19,7 +19,7 @@ hooks:
   build: |
     set -e
     if [ "$(echo $COMPOSER_AUTH | jq -r '."http-basic"."pionect.repo.packagist.com".username')" = "token" ]; then
-      composer update
+      composer install
       patch -p1 < patches/client_fetcher_daalder_11_0_10.diff
     else
       echo
