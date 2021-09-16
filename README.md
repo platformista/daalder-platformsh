@@ -114,7 +114,14 @@ You can also use [the `curl` test scripts](https://github.com/vincenzo/daalder-p
 
 [Lando](https://lando.dev/) vastly simplifies local development and DevOps, and it is Platform.sh’s recommended local development tool, as Lando now includes direct support for Platform.sh projects.
 
-This template already includes a `.lando.upstream.yml` with some default configurations. All you need to do is to follow the [Quick Start](https://docs.platform.sh/development/local/lando.html#quick-start) as per Platform.sh's own documentation.
+This template already includes a `.lando.upstream.yml` with some default configurations. All you need to do is to follow the [Quick Start](https://docs.platform.sh/development/local/lando.html#quick-start) as per Platform.sh's own documentation. But in short, once you have Lando installed, you should be able to do (from the checkout of your Platform.sh project): 
+
+```sh
+lando init --source cwd --recipe platformsh # follow the instruction on screen
+lando start
+```
+
+and you'll have a container-based development environment that reflects the Platform.sh deployment, including all build and deploy steps.
 
 ## References
 
