@@ -20,7 +20,7 @@ hooks:
     set -e
     if [ "$(echo $COMPOSER_AUTH | jq -r '."http-basic"."pionect.repo.packagist.com".username')" = "token" ]; then
       composer install
-      patch -p1 < patches/client_fetcher_daalder_11_0_10.diff
+      find ./patches -iname "*.diff" | while read FILE; do patch -p1 < ${FILE}; done
     else
       echo
       echo "IMPORTANT: BUILD SKIPPED"
@@ -39,6 +39,7 @@ hooks:
         php artisan elastic:sync
         php artisan passport:install --force > storage/auth-clients.txt
         php artisan user:super-user --firstname=Admin --email=your@email.com >> storage/auth-clients.txt
+        php artisan vendor:publish --tag="public"
       else
         if [ "$PLATFORM_ENVIRONMENT_TYPE" != "production" ]; then
           php artisan passport:purge

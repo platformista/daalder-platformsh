@@ -1,0 +1,17 @@
+Index: vendor/pionect/daalder/database/seeders/ProductAttributeGroupSeeder.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vendor/pionect/daalder/database/seeders/ProductAttributeGroupSeeder.php b/vendor/pionect/daalder/database/seeders/ProductAttributeGroupSeeder.php
+--- a/vendor/pionect/daalder/database/seeders/ProductAttributeGroupSeeder.php	(date 1631718184575)
++++ b/vendor/pionect/daalder/database/seeders/ProductAttributeGroupSeeder.php	(date 1631718184575)
+@@ -39,7 +39,7 @@
+             'sort_order' => $sort_order
+         ])->first();
+
+-        $group->fill(['en_us' => ['name' => $name]]);
++        // $group->fill(['en_us' => ['name' => $name]]);
+         $group->save();
+     }
+ }
