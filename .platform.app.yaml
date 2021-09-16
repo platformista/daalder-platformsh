@@ -18,38 +18,10 @@ build:
 hooks:
   build: |
     set -e
-    if [ "$(echo $COMPOSER_AUTH | jq -r '."http-basic"."pionect.repo.packagist.com".username')" = "token" ]; then
-      composer install
-      find ./patches -iname "*.diff" | while read FILE; do patch -p1 < ${FILE}; done
-    else
-      echo
-      echo "IMPORTANT: BUILD SKIPPED"
-      echo "Packagist authentication is required in order to fetch the pionect/daalder package."
-      echo "Please add the COMPOSER_AUTH environment variable with your credentials, either by using the Web Console or by running the folllwing command:"
-      echo
-      echo 'platform variable:create -l project --name=COMPOSER_AUTH --value="{"http-basic": {"pionect.repo.packagist.com": {"username": "token", "password": "YOUR_TOKEN"}}}" --json=true --sensitive=true --prefix=env: --visible-build=true --visible-runtime=false -p YOUR_PLATFORM_PROJECT_ID'
-    fi
+    sh .daalder/scripts/build.sh
   deploy: |
     set -e
-    if [ -d "vendor" ]; then
-      php artisan package:discover --ansi
-      php artisan migrate --force
-      if ! [ -f "storage/auth-clients.txt" ]; then
-        php artisan db:seed --class="DaalderSeeder" --force
-        php artisan elastic:sync
-        php artisan passport:install --force > storage/auth-clients.txt
-        php artisan user:super-user --firstname=Admin --email=your@email.com >> storage/auth-clients.txt
-        php artisan vendor:publish --tag="public"
-      else
-        if [ "$PLATFORM_ENVIRONMENT_TYPE" != "production" ]; then
-          php artisan passport:purge
-          php artisan passport:install --force > storage/auth-clients.txt
-          php artisan user:super-user --firstname=Admin --email=your@email.com >> storage/auth-clients.txt
-        fi
-      fi
-      php artisan config:clear
-      php artisan cache:clear
-    fi
+    sh .daalder/scripts/deploy.sh
 
 
 # The relationships of the application with services or other applications.

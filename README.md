@@ -112,7 +112,7 @@ A successful request will result in a response such as the following:
 }
 ```
 
-You can also use [the `curl` test scripts](https://github.com/vincenzo/daalder-platformsh/tree/master/curl) we have included in this template.
+You can also use [the `curl` test scripts](https://github.com/vincenzo/daalder-platformsh/tree/master/.daalder/curl) we have included in this template.
 
 ## Local development with Lando
 
